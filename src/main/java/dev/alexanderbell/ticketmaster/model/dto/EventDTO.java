@@ -20,5 +20,5 @@ public class EventDTO {
     private VenueIdDTO venue;
 
     private VenueDTO venueObj;
-
+    private Set<ArtistDTO> artistsObj;
 }

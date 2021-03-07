@@ -1,6 +1,10 @@
 package dev.alexanderbell.ticketmaster.controller;
 
 import dev.alexanderbell.ticketmaster.model.Artist;
+import dev.alexanderbell.ticketmaster.model.Venue;
+import dev.alexanderbell.ticketmaster.service.ArtistDataTransformationService;
+import dev.alexanderbell.ticketmaster.service.VenueDataTransformationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +18,12 @@ import javax.validation.constraints.Min;
 @RestController
 @RequestMapping("/api/v1")
 @Validated
+@RequiredArgsConstructor
 public class VenueController {
-    @GetMapping("/venue/{venueId}")
-    public ResponseEntity<Artist> getVenueById(@PathVariable("venueId") @Min(value = 0, message = "Venue ID must be positive") Long venueId){
+    private final VenueDataTransformationService venueDataTransformationService;
 
-        return ResponseEntity.ok().build();
+    @GetMapping("/venue/{venueId}")
+    public ResponseEntity<Venue> getVenueById(@PathVariable("venueId") @Min(value = 0, message = "Venue ID must be positive") Long venueId){
+        return ResponseEntity.ok(venueDataTransformationService.retrieveVenueWithEvents(venueId));
     }
 }

@@ -1,9 +1,11 @@
 package dev.alexanderbell.ticketmaster.controller;
 
+import dev.alexanderbell.ticketmaster.service.VenueDataTransformationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -21,6 +23,9 @@ class VenueControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    VenueDataTransformationService venueDataTransformationService;
 
     final String URL_TEMPLATE = "/api/v1/venue/";
 

@@ -20,10 +20,12 @@ class ArtistControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    final String URL_TEMPLATE = "/api/v1/artist/";
+
     @Test
     void testEnsureEndpointIsExposed() throws Exception {
         int artistId = 10;
-        MockHttpServletRequestBuilder REQUEST_BUILDER = request(HttpMethod.GET, "/api/v1/artist/" + artistId)
+        MockHttpServletRequestBuilder REQUEST_BUILDER = request(HttpMethod.GET, URL_TEMPLATE + artistId)
                 .header(CONTENT_TYPE, APPLICATION_JSON_VALUE)
                 .accept(APPLICATION_JSON);
 
@@ -34,7 +36,8 @@ class ArtistControllerTest {
     @Test
     void testEnsureNegativeVenueIdIsRejected() throws Exception {
         int artistId = -10;
-        MockHttpServletRequestBuilder REQUEST_BUILDER = request(HttpMethod.GET, "/api/v1/artist/" + artistId)
+
+        MockHttpServletRequestBuilder REQUEST_BUILDER = request(HttpMethod.GET, URL_TEMPLATE + artistId)
                 .header(CONTENT_TYPE, APPLICATION_JSON_VALUE)
                 .accept(APPLICATION_JSON);
 

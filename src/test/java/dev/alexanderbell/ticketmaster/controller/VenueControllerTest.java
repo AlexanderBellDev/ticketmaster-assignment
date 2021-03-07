@@ -22,10 +22,12 @@ class VenueControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    final String URL_TEMPLATE = "/api/v1/venue/";
+
     @Test
     void testEnsureEndpointIsExposed() throws Exception {
         int venueId = 5;
-        MockHttpServletRequestBuilder REQUEST_BUILDER = request(HttpMethod.GET, "/api/v1/venue/" + venueId)
+        MockHttpServletRequestBuilder REQUEST_BUILDER = request(HttpMethod.GET, URL_TEMPLATE + venueId)
                 .header(CONTENT_TYPE, APPLICATION_JSON_VALUE)
                 .accept(APPLICATION_JSON);
 
@@ -36,7 +38,7 @@ class VenueControllerTest {
     @Test
     void testEnsureNegativeVenueIdIsRejected() throws Exception {
         int venueId = -10;
-        MockHttpServletRequestBuilder REQUEST_BUILDER = request(HttpMethod.GET, "/api/v1/venue/" + venueId)
+        MockHttpServletRequestBuilder REQUEST_BUILDER = request(HttpMethod.GET, URL_TEMPLATE + venueId)
                 .header(CONTENT_TYPE, APPLICATION_JSON_VALUE)
                 .accept(APPLICATION_JSON);
 

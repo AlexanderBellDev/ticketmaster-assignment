@@ -1,16 +1,12 @@
-package dev.alexanderbell.ticketmaster.model;
+package dev.alexanderbell.ticketmaster.model.dto;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class Artist {
+public class ArtistDTO {
     private Long id;
     private String name;
     private String imgSrc;
     private String url;
     private Long rank;
-
-    private List<Event> events;
 }

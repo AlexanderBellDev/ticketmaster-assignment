@@ -5,12 +5,12 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Artist {
+public class Venue {
     private Long id;
     private String name;
-    private String imgSrc;
     private String url;
-    private Long rank;
+    private String city;
 
     private List<Event> events;
+
 }

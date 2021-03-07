@@ -2,10 +2,11 @@ package dev.alexanderbell.ticketmaster.service.impl;
 
 import dev.alexanderbell.ticketmaster.model.Artist;
 import dev.alexanderbell.ticketmaster.model.Event;
+import dev.alexanderbell.ticketmaster.model.Venue;
 import dev.alexanderbell.ticketmaster.model.dto.ArtistDTO;
 import dev.alexanderbell.ticketmaster.model.dto.EventDTO;
+import dev.alexanderbell.ticketmaster.model.dto.VenueDTO;
 import dev.alexanderbell.ticketmaster.model.dto.VenueIdDTO;
-import dev.alexanderbell.ticketmaster.service.ModelMappingService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,7 +34,7 @@ class ModelMappingServiceImplTest {
         when(modelMapper.map(artistDTO,Artist.class))
                 .thenReturn(expectedArtist);
 
-        List<Artist> actualArtists = modelMappingService.artistDTOToArtist(Collections.singletonList(artistDTO));
+        List<Artist> actualArtists = modelMappingService.artistDTOListToArtistList(Collections.singletonList(artistDTO));
         assertEquals(expectedArtist,actualArtists.get(0));
     }
 
@@ -46,8 +47,21 @@ class ModelMappingServiceImplTest {
         when(modelMapper.map(e1,Event.class))
                 .thenReturn(expectedEvent);
 
-        List<Event> events = modelMappingService.eventDTOToEvent(Collections.singletonList(e1));
+        List<Event> events = modelMappingService.eventDTOListToEventList(Collections.singletonList(e1));
 
         assertEquals(expectedEvent,events.get(0));
+    }
+
+    @Test
+    void venueDTOToVenue(){
+        VenueDTO v1 = new VenueDTO(10L, "O2", "o2.com", "London");
+
+        Venue expectedVenue = new Venue(10L, "O2", "o2.com", "London", null);
+        when(modelMapper.map(v1, Venue.class))
+                .thenReturn(expectedVenue);
+
+        Venue actualVenue = modelMappingService.venueDTOToVenue(v1);
+
+        assertEquals(expectedVenue,actualVenue);
     }
 }

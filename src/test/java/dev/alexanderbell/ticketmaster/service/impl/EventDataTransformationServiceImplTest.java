@@ -4,6 +4,7 @@ import dev.alexanderbell.ticketmaster.model.dto.EventDTO;
 import dev.alexanderbell.ticketmaster.model.dto.VenueDTO;
 import dev.alexanderbell.ticketmaster.model.dto.VenueIdDTO;
 import dev.alexanderbell.ticketmaster.service.VenueDataTransformationService;
+import dev.alexanderbell.ticketmaster.service.VenueRetrievalService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,12 +25,12 @@ class EventDataTransformationServiceImplTest {
     EventDataTransformationServiceImpl eventDataTransformationService;
 
     @Mock
-    VenueDataTransformationService venueDataTransformationService;
+    VenueRetrievalService venueRetrievalService;
 
     @Test
     void assignVenueDataForEvent() {
         VenueDTO v1 = new VenueDTO(10L, "O2", "o2.com", "London");
-        when(venueDataTransformationService.getVenueDataById()).thenReturn(new HashMap<>(Map.of(10L, v1)));
+        when(venueRetrievalService.mapOfVenueById()).thenReturn(new HashMap<>(Map.of(10L, v1)));
 
         EventDTO e1 = new EventDTO(1L, "Summer concert", "once", "London", "10/03/2020",
                 false, null, new VenueIdDTO(10L), null, null);

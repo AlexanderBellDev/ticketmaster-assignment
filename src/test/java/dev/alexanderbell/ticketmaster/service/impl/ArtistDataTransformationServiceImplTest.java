@@ -14,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,7 +22,6 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -48,10 +46,10 @@ class ArtistDataTransformationServiceImplTest {
         Artist expectedArtist = new Artist(1L, "Bob Marley", "/344.jpg", "bob.com", 10L, null);
 
 
-        when(modelMappingService.artistDTOToArtist(artistDTOS)).thenReturn(new ArrayList<>(List.of(expectedArtist)));
+        when(modelMappingService.artistDTOListToArtistList(artistDTOS)).thenReturn(new ArrayList<>(List.of(expectedArtist)));
         List<Event> expectedEventList = new ArrayList<>(List.of(new Event(1L, "Summer concert", "once", "London", "10/03/2020",
                 new HashSet<>(Set.of(artistDTOS.get(0))), null)));
-        when(modelMappingService.eventDTOToEvent(eventDTOS)).thenReturn(expectedEventList);
+        when(modelMappingService.eventDTOListToEventList(eventDTOS)).thenReturn(expectedEventList);
         List<Artist> artists = artistDataTransformationService.retrieveListOfArtistsWithEventsAssigned();
         assertEquals(expectedEventList,artists.get(0).getEvents());
     }

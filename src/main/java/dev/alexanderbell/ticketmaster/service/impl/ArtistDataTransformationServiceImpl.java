@@ -9,7 +9,6 @@ import dev.alexanderbell.ticketmaster.service.ArtistDataTransformationService;
 import dev.alexanderbell.ticketmaster.service.EventDataTransformationService;
 import dev.alexanderbell.ticketmaster.service.ModelMappingService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +19,6 @@ import java.util.stream.Collectors;
 public class ArtistDataTransformationServiceImpl implements ArtistDataTransformationService {
     private final ApiDataRetrievalService apiDataRetrievalService;
     private final EventDataTransformationService eventDataTransformationService;
-    private final ModelMapper modelMapper;
     private final ModelMappingService modelMappingService;
 
     @Override
@@ -30,13 +28,13 @@ public class ArtistDataTransformationServiceImpl implements ArtistDataTransforma
 
         eventDataTransformationService.assignVenueDataForEvent(eventDTOS);
 
-        List<Artist> listOfArtist = modelMappingService.artistDTOToArtist(artistDTOS);
+        List<Artist> listOfArtist = modelMappingService.artistDTOListToArtistList(artistDTOS);
 
         listOfArtist.forEach(artist -> {
             List<EventDTO> listOfMatchingEvent = eventDTOS.stream()
                     .filter(eventDTO -> eventDTO.getArtists().contains(new ArtistIdDTO(artist.getId())))
                     .collect(Collectors.toList());
-            artist.setEvents( modelMappingService.eventDTOToEvent(listOfMatchingEvent));
+            artist.setEvents( modelMappingService.eventDTOListToEventList(listOfMatchingEvent));
         });
 
 

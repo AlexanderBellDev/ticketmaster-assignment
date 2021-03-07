@@ -1,0 +1,32 @@
+package dev.alexanderbell.ticketmaster.exception.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
+@ControllerAdvice
+public class ApiExceptionHandler {
+    ZoneId zoneId = ZoneId.of("Europe/London");
+
+    @ExceptionHandler(value = {ApiBadRequestException.class})
+    public ResponseEntity<Object> handleApiRequestException(ApiBadRequestException apiBadRequestException){
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        ApiException apiException = new ApiException(apiBadRequestException.getMessage(), badRequest, ZonedDateTime.now(zoneId));
+        return new ResponseEntity<>(apiException, badRequest);
+    }
+
+    @ExceptionHandler(value = {ApiNotFoundException.class})
+    public ResponseEntity<Object> handleApiRequestException(ApiNotFoundException apiNotFoundException){
+        HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+        ApiException apiException = new ApiException(apiNotFoundException.getMessage(), httpStatus, ZonedDateTime.now(zoneId));
+        return new ResponseEntity<>(apiException, httpStatus);
+    }
+}

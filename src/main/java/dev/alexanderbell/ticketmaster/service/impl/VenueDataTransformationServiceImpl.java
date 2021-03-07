@@ -1,6 +1,6 @@
 package dev.alexanderbell.ticketmaster.service.impl;
 
-import dev.alexanderbell.ticketmaster.exception.exception.ApiNotFoundException;
+import dev.alexanderbell.ticketmaster.exception.ApiNotFoundException;
 import dev.alexanderbell.ticketmaster.model.Event;
 import dev.alexanderbell.ticketmaster.model.Venue;
 import dev.alexanderbell.ticketmaster.model.dto.ArtistDTO;

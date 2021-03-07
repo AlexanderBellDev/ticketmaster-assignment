@@ -1,4 +1,4 @@
-package dev.alexanderbell.ticketmaster.exception.exception;
+package dev.alexanderbell.ticketmaster.exception;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

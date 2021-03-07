@@ -1,6 +1,6 @@
 package dev.alexanderbell.ticketmaster.service.impl;
 
-import dev.alexanderbell.ticketmaster.exception.exception.ApiNoContentException;
+import dev.alexanderbell.ticketmaster.exception.ApiNoContentException;
 import dev.alexanderbell.ticketmaster.model.dto.ArtistDTO;
 import dev.alexanderbell.ticketmaster.model.dto.EventDTO;
 import dev.alexanderbell.ticketmaster.model.dto.VenueDTO;

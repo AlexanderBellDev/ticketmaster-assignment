@@ -1,10 +1,12 @@
 package dev.alexanderbell.ticketmaster.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
 public class EventDTO {
     private Long id;
     private String title;
@@ -16,6 +18,6 @@ public class EventDTO {
     private Set<ArtistIdDTO> artists;
     private VenueIdDTO venue;
 
-    private VenueDTO venueObj;
+    private VenueDTO venueDTO;
     private Set<ArtistDTO> artistSet;
 }

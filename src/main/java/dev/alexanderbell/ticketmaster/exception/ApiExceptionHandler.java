@@ -1,4 +1,4 @@
-package dev.alexanderbell.ticketmaster.exception.exception;
+package dev.alexanderbell.ticketmaster.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

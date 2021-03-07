@@ -1,7 +1,7 @@
 package dev.alexanderbell.ticketmaster.controller;
 
 import dev.alexanderbell.ticketmaster.model.Artist;
-import dev.alexanderbell.ticketmaster.service.ArtistDataTransformationService;
+import dev.alexanderbell.ticketmaster.service.ArtistRetrievalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,10 +17,10 @@ import javax.validation.constraints.Min;
 @Validated
 @RequiredArgsConstructor
 public class ArtistController {
-    private final ArtistDataTransformationService artistDataTransformationService;
+    private final ArtistRetrievalService artistRetrievalService;
 
     @GetMapping("/artist/{artistId}")
     public ResponseEntity<Artist> getArtistById(@PathVariable("artistId") @Min(value = 0, message = "Artist ID must be positive") Long artistId){
-        return ResponseEntity.ok(artistDataTransformationService.retrieveArtistWithEvents(artistId));
+        return ResponseEntity.ok(artistRetrievalService.retrieveArtistWithEvents(artistId));
     }
 }

@@ -1,6 +1,7 @@
 package dev.alexanderbell.ticketmaster.controller;
 
 import dev.alexanderbell.ticketmaster.service.ArtistDataTransformationService;
+import dev.alexanderbell.ticketmaster.service.ArtistRetrievalService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,7 +24,7 @@ class ArtistControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    ArtistDataTransformationService artistDataTransformationService;
+    ArtistRetrievalService artistRetrievalService;
 
     final String URL_TEMPLATE = "/api/v1/artist/";
 

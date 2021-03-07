@@ -18,6 +18,6 @@ public class EventDataTransformationServiceImpl implements EventDataTransformati
     @Override
     public void assignVenueDataForEvent(List<EventDTO> eventDTOList) {
         Map<Long, VenueDTO> venueDataMappedById = venueDataTransformationService.getVenueDataById();
-        eventDTOList.forEach(eventDTO -> eventDTO.setVenueObj(venueDataMappedById.get(eventDTO.getVenue().getId())));
+        eventDTOList.forEach(eventDTO -> eventDTO.setVenueDTO(venueDataMappedById.get(eventDTO.getVenue().getId())));
     }
 }

@@ -1,4 +1,4 @@
-package dev.alexanderbell.ticketmaster.exception.exception;
+package dev.alexanderbell.ticketmaster.exception;
 
 public class ApiBadRequestException extends RuntimeException{
     public ApiBadRequestException(String message) {

@@ -1,4 +1,4 @@
-package dev.alexanderbell.ticketmaster.exception.exception;
+package dev.alexanderbell.ticketmaster.exception;
 
 public class ApiNoContentException extends RuntimeException{
     public ApiNoContentException(String message) {

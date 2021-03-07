@@ -34,12 +34,12 @@ public class ArtistRetrievalServiceImpl implements ArtistRetrievalService {
     }
 
     @Override
-    public void setArtistDetails(List<EventDTO> getRelevantEvents) {
+    public void setArtistDetails(List<EventDTO> relevantEventList) {
         List<ArtistDTO> artistDTOS = apiDataRetrievalService.retrieveListOfArtist();
         Map<Long, ArtistDTO> artistDataById = artistDTOS.stream()
                 .collect(Collectors.toMap(ArtistDTO::getId, artistDTO -> artistDTO));
 
-        for (EventDTO eventDTO : getRelevantEvents) {
+        for (EventDTO eventDTO : relevantEventList) {
             Set<ArtistDTO> artistDTOList = new HashSet<>();
             for (ArtistIdDTO artist : eventDTO.getArtists()) {
                 artistDTOList.add(artistDataById.get(artist.getId()));

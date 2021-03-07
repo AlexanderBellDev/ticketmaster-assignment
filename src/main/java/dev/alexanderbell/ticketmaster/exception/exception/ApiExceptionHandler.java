@@ -29,4 +29,11 @@ public class ApiExceptionHandler {
         ApiException apiException = new ApiException(apiNotFoundException.getMessage(), httpStatus, ZonedDateTime.now(zoneId));
         return new ResponseEntity<>(apiException, httpStatus);
     }
+
+    @ExceptionHandler(value = {ApiNoContentException.class})
+    public ResponseEntity<Object> handleApiRequestException(ApiNoContentException apiNoContentException){
+        HttpStatus httpStatus = HttpStatus.NO_CONTENT;
+        ApiException apiException = new ApiException(apiNoContentException.getMessage(), httpStatus, ZonedDateTime.now(zoneId));
+        return new ResponseEntity<>(apiException, httpStatus);
+    }
 }

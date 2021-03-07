@@ -1,8 +1,6 @@
 package dev.alexanderbell.ticketmaster.controller;
 
-import dev.alexanderbell.ticketmaster.model.Artist;
 import dev.alexanderbell.ticketmaster.model.Venue;
-import dev.alexanderbell.ticketmaster.service.ArtistDataTransformationService;
 import dev.alexanderbell.ticketmaster.service.VenueDataTransformationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

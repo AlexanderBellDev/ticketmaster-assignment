@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class VenueDataTransformationServiceImpl implements VenueDataTransformationService {
     private final ModelMapper modelMapper;
     private final ApiDataRetrievalService apiDataRetrievalService;
+
     public Map<Long, VenueDTO> getVenueDataById() {
         List<VenueDTO> venueDTOS = apiDataRetrievalService.retrieveListOfVenue();
         return venueDTOS.stream()
@@ -30,13 +31,9 @@ public class VenueDataTransformationServiceImpl implements VenueDataTransformati
     @Override
     public Venue retrieveVenueWithEvents(Long venueId) {
         List<EventDTO> eventDTOS = apiDataRetrievalService.retrieveListOfEvent();
-        List<ArtistDTO> artistDTOS = apiDataRetrievalService.retrieveListOfArtist();
-        Map<Long, ArtistDTO> artistDataById = artistDTOS.stream()
-                .collect(Collectors.toMap(ArtistDTO::getId, artistDTO -> artistDTO));
-
 
         Optional<VenueDTO> venueDTOOptional = Optional.ofNullable(getVenueDataById().get(venueId));
-        if(venueDTOOptional.isEmpty()){
+        if (venueDTOOptional.isEmpty()) {
             throw new ApiNotFoundException("No venue with id: " + venueId + " found!");
         }
 
@@ -45,13 +42,8 @@ public class VenueDataTransformationServiceImpl implements VenueDataTransformati
                 .filter(eventDTO -> eventDTO.getVenue().getId().equals(venue.getId()))
                 .collect(Collectors.toList());
 
-        for (EventDTO eventDTO : getRelevantEvents) {
-            Set<ArtistDTO> artistDTOList = new HashSet<>();
-            for (ArtistIdDTO artist : eventDTO.getArtists()) {
-                artistDTOList.add(artistDataById.get(artist.getId()));
-            }
-            eventDTO.setArtistsObj(artistDTOList);
-        }
+        setArtistDetails(getRelevantEvents);
+
         List<Event> mappedListOfEvent = getRelevantEvents.stream()
                 .map(eventDTO -> modelMapper.map(eventDTO, Event.class))
                 .collect(Collectors.toList());
@@ -59,5 +51,19 @@ public class VenueDataTransformationServiceImpl implements VenueDataTransformati
         venue.setEvents(mappedListOfEvent);
 
         return venue;
+    }
+
+    private void setArtistDetails(List<EventDTO> getRelevantEvents) {
+        List<ArtistDTO> artistDTOS = apiDataRetrievalService.retrieveListOfArtist();
+        Map<Long, ArtistDTO> artistDataById = artistDTOS.stream()
+                .collect(Collectors.toMap(ArtistDTO::getId, artistDTO -> artistDTO));
+
+        for (EventDTO eventDTO : getRelevantEvents) {
+            Set<ArtistDTO> artistDTOList = new HashSet<>();
+            for (ArtistIdDTO artist : eventDTO.getArtists()) {
+                artistDTOList.add(artistDataById.get(artist.getId()));
+            }
+            eventDTO.setArtistSet(artistDTOList);
+        }
     }
 }

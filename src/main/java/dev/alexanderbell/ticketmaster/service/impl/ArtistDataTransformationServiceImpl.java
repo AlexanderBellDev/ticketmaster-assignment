@@ -9,7 +9,6 @@ import dev.alexanderbell.ticketmaster.model.dto.EventDTO;
 import dev.alexanderbell.ticketmaster.service.ApiDataRetrievalService;
 import dev.alexanderbell.ticketmaster.service.ArtistDataTransformationService;
 import dev.alexanderbell.ticketmaster.service.EventDataTransformationService;
-import dev.alexanderbell.ticketmaster.service.VenueDataTransformationService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class ArtistDataTransformationServiceImpl implements ArtistDataTransforma
         List<ArtistDTO> artistDTOS = apiDataRetrievalService.retrieveListOfArtist();
         List<EventDTO> eventDTOS = apiDataRetrievalService.retrieveListOfEvent();
 
-        eventDataTransformationService.assignEventObject(eventDTOS);
+        eventDataTransformationService.assignVenueDataForEvent(eventDTOS);
 
         List<Artist> listOfArtist = artistDTOS.stream()
                 .map(artistDTO -> modelMapper.map(artistDTO, Artist.class))
@@ -38,7 +37,6 @@ public class ArtistDataTransformationServiceImpl implements ArtistDataTransforma
             List<Event> listOfMatchingEvent = eventDTOS.stream()
                     .filter(eventDTO -> eventDTO.getArtists().contains(new ArtistIdDTO(artist.getId())))
                     .map(eventDTO -> modelMapper.map(eventDTO, Event.class))
-                    .peek(event -> event.setArtistsObj(null))
                     .collect(Collectors.toList());
 
             artist.setEvents(listOfMatchingEvent);
@@ -54,6 +52,7 @@ public class ArtistDataTransformationServiceImpl implements ArtistDataTransforma
         Optional<Artist> optionalArtist = artists.stream()
                 .filter(artist -> artist.getId().equals(artistId))
                 .findFirst();
+
         if(optionalArtist.isEmpty()){
             throw new ApiNotFoundException("No artist with id: " + artistId + " found!");
         }

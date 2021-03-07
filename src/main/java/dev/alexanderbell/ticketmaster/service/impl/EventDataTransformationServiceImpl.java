@@ -1,6 +1,5 @@
 package dev.alexanderbell.ticketmaster.service.impl;
 
-import dev.alexanderbell.ticketmaster.model.Venue;
 import dev.alexanderbell.ticketmaster.model.dto.EventDTO;
 import dev.alexanderbell.ticketmaster.model.dto.VenueDTO;
 import dev.alexanderbell.ticketmaster.service.EventDataTransformationService;
@@ -17,9 +16,8 @@ public class EventDataTransformationServiceImpl implements EventDataTransformati
     private final VenueDataTransformationService venueDataTransformationService;
 
     @Override
-    public void assignEventObject(List<EventDTO> eventDTOList) {
-        Map<Long, VenueDTO> venueDataById = venueDataTransformationService.getVenueDataById();
-
-        eventDTOList.forEach(eventDTO -> eventDTO.setVenueObj(venueDataById.get(eventDTO.getVenue().getId())));
+    public void assignVenueDataForEvent(List<EventDTO> eventDTOList) {
+        Map<Long, VenueDTO> venueDataMappedById = venueDataTransformationService.getVenueDataById();
+        eventDTOList.forEach(eventDTO -> eventDTO.setVenueObj(venueDataMappedById.get(eventDTO.getVenue().getId())));
     }
 }

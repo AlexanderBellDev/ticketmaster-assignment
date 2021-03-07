@@ -5,6 +5,7 @@ import dev.alexanderbell.ticketmaster.model.dto.ArtistDTO;
 import dev.alexanderbell.ticketmaster.model.dto.EventDTO;
 import dev.alexanderbell.ticketmaster.model.dto.VenueDTO;
 import dev.alexanderbell.ticketmaster.service.ApiDataRetrievalService;
+import dev.alexanderbell.ticketmaster.service.ArtistDataTransformationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,11 +22,10 @@ import java.util.List;
 @Validated
 @RequiredArgsConstructor
 public class ArtistController {
-    private final ApiDataRetrievalService apiDataRetrievalService;
+    private final ArtistDataTransformationService artistDataTransformationService;
 
     @GetMapping("/artist/{artistId}")
-    public ResponseEntity<Artist> getArtistById(@PathVariable("artistId") @Min(value = 0, message = "Artist ID must be positive") Integer artistId){
-
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Artist> getArtistById(@PathVariable("artistId") @Min(value = 0, message = "Artist ID must be positive") Long artistId){
+        return ResponseEntity.ok(artistDataTransformationService.retrieveArtistWithEvents(artistId));
     }
 }

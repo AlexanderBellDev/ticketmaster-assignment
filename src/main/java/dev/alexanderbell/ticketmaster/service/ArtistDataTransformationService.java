@@ -10,4 +10,6 @@ import java.util.List;
 public interface ArtistDataTransformationService {
     List<Artist> retrieveListOfArtistWithEvents();
 
+    Artist retrieveArtistWithEvents(Long artistId);
+
 }

@@ -5,6 +5,7 @@ import dev.alexanderbell.ticketmaster.model.Venue;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class EventDTO {
@@ -15,7 +16,7 @@ public class EventDTO {
     private String startDate;
     private boolean hiddenFromSearch;
 
-    private List<ArtistDTO> artists;
-    private VenueDTO venue;
+    private Set<ArtistIdDTO> artists;
+    private VenueIdDTO venue;
 
 }

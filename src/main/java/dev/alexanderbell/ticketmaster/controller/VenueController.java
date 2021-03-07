@@ -16,7 +16,7 @@ import javax.validation.constraints.Min;
 @Validated
 public class VenueController {
     @GetMapping("/venue/{venueId}")
-    public ResponseEntity<Artist> getVenueById(@PathVariable("venueId") @Min(value = 0, message = "Venue ID must be positive") Integer venueId){
+    public ResponseEntity<Artist> getVenueById(@PathVariable("venueId") @Min(value = 0, message = "Venue ID must be positive") Long venueId){
 
         return ResponseEntity.ok().build();
     }

@@ -6,8 +6,10 @@ import dev.alexanderbell.ticketmaster.model.Event;
 import dev.alexanderbell.ticketmaster.model.dto.ArtistDTO;
 import dev.alexanderbell.ticketmaster.model.dto.ArtistIdDTO;
 import dev.alexanderbell.ticketmaster.model.dto.EventDTO;
+import dev.alexanderbell.ticketmaster.model.dto.VenueDTO;
 import dev.alexanderbell.ticketmaster.service.ApiDataRetrievalService;
 import dev.alexanderbell.ticketmaster.service.ArtistDataTransformationService;
+import dev.alexanderbell.ticketmaster.service.VenueDataTransformationService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ArtistDataTransformationServiceImpl implements ArtistDataTransformationService {
     private final ApiDataRetrievalService apiDataRetrievalService;
+    private final VenueDataTransformationService venueDataTransformationService;
     private final ModelMapper modelMapper;
     @Override
     public List<Artist> retrieveListOfArtistWithEvents() {
         List<ArtistDTO> artistDTOS = apiDataRetrievalService.retrieveListOfArtist();
         List<EventDTO> eventDTOS = apiDataRetrievalService.retrieveListOfEvent();
 
+        venueDataTransformationService.assignEventObject(eventDTOS);
 
         List<Artist> listOfArtist = artistDTOS.stream()
                 .map(artistDTO -> modelMapper.map(artistDTO, Artist.class))
@@ -34,6 +38,7 @@ public class ArtistDataTransformationServiceImpl implements ArtistDataTransforma
             List<Event> listOfMatchingEvent = eventDTOS.stream()
                     .filter(eventDTO -> eventDTO.getArtists().contains(new ArtistIdDTO(artist.getId())))
                     .map(eventDTO -> modelMapper.map(eventDTO, Event.class))
+                    .peek(event -> event.setArtists(null))
                     .collect(Collectors.toList());
 
             artist.setEvents(listOfMatchingEvent);

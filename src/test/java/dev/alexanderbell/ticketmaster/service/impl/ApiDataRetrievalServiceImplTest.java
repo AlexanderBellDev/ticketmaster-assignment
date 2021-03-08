@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,7 +40,7 @@ class ApiDataRetrievalServiceImplTest {
         when(restTemplate.getForObject(artistEndpoint, ArtistDTO[].class)).thenReturn(new ArtistDTO[]{new ArtistDTO(1L, "Bob Marley", "/344.jpg", "bob.com", 10L)});
 
         List<ArtistDTO> artistDTOList = apiDataRetrievalService.retrieveListOfArtist();
-        assertEquals(new ArrayList<>(List.of(new ArtistDTO(1L, "Bob Marley", "/344.jpg", "bob.com", 10L))), artistDTOList);
+        assertEquals(Collections.singletonList(new ArtistDTO(1L, "Bob Marley", "/344.jpg", "bob.com", 10L)), artistDTOList);
     }
 
     @Test
@@ -53,8 +54,8 @@ class ApiDataRetrievalServiceImplTest {
                 false,null,null,null,null)});
 
         List<EventDTO> eventDTOList = apiDataRetrievalService.retrieveListOfEvent();
-        assertEquals(new ArrayList<>(List.of(new EventDTO(1L, "Summer concert", "once", "London", "10/03/2020",
-                false,null,null,null,null))), eventDTOList);
+        assertEquals(Collections.singletonList(new EventDTO(1L, "Summer concert", "once", "London", "10/03/2020",
+                false,null,null,null,null)), eventDTOList);
     }
 
     @Test
@@ -70,7 +71,7 @@ class ApiDataRetrievalServiceImplTest {
 
         List<VenueDTO> venueDTOList = apiDataRetrievalService.retrieveListOfVenue();
 
-        assertEquals(new ArrayList<>(List.of(new VenueDTO[]{new VenueDTO(10L,"O2","o2.com","London")})),venueDTOList);
+        assertEquals(Collections.singletonList(new VenueDTO(10L,"O2","o2.com","London")),venueDTOList);
     }
 
     @Test

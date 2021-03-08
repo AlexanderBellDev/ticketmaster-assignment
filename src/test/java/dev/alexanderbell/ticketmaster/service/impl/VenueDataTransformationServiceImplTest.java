@@ -38,14 +38,14 @@ class VenueDataTransformationServiceImplTest {
 
     @Test
     void getVenueDataById() {
-        VenueDTO v1 = new VenueDTO(10L, "O2", "o2.com", "London");
-        EventDTO e1 = new EventDTO(1L, "Summer concert", "once", "London", "10/03/2020",
-                false, null, new VenueIdDTO(10L), v1, null);
-        ArrayList<EventDTO> eventDTOS = new ArrayList<>(List.of(e1));
+        VenueDTO venueDTO = new VenueDTO(10L, "O2", "o2.com", "London");
+        EventDTO eventDTO = new EventDTO(1L, "Summer concert", "once", "London", "10/03/2020",
+                false, null, new VenueIdDTO(10L), venueDTO, null);
+        List<EventDTO> eventDTOS = Collections.singletonList(eventDTO);
         when(apiDataRetrievalService.retrieveListOfEvent()).thenReturn(eventDTOS);
 
-        when(venueRetrievalService.mapOfVenueById()).thenReturn(new HashMap<>(Map.of(1L, v1)));
-        when(modelMappingService.venueDTOToVenue(v1)).thenReturn(new Venue(10L, "O2", "o2.com", "London",null));
+        when(venueRetrievalService.mapOfVenueById()).thenReturn(new HashMap<>(Map.of(1L, venueDTO)));
+        when(modelMappingService.venueDTOToVenue(venueDTO)).thenReturn(new Venue(10L, "O2", "o2.com", "London",null));
         when(modelMappingService.eventDTOListToEventList(eventDTOS)).thenReturn(Collections.singletonList(new Event(1L, "Summer concert", "once", "London", "10/03/2020",
                null, null)));
         Venue expectedVenue = new Venue(10L, "O2", "o2.com", "London",Collections.singletonList(new Event(1L, "Summer concert", "once", "London", "10/03/2020",

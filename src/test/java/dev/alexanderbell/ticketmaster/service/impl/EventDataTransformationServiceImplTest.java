@@ -11,10 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -29,16 +26,16 @@ class EventDataTransformationServiceImplTest {
 
     @Test
     void assignVenueDataForEvent() {
-        VenueDTO v1 = new VenueDTO(10L, "O2", "o2.com", "London");
-        when(venueRetrievalService.mapOfVenueById()).thenReturn(new HashMap<>(Map.of(10L, v1)));
+        VenueDTO venueDTO = new VenueDTO(10L, "O2", "o2.com", "London");
+        when(venueRetrievalService.mapOfVenueById()).thenReturn(new HashMap<>(Map.of(10L, venueDTO)));
 
-        EventDTO e1 = new EventDTO(1L, "Summer concert", "once", "London", "10/03/2020",
+        EventDTO eventDTO = new EventDTO(1L, "Summer concert", "once", "London", "10/03/2020",
                 false, null, new VenueIdDTO(10L), null, null);
-        ArrayList<EventDTO> eventDTOS = new ArrayList<>(List.of(e1));
+        List<EventDTO> eventDTOS = Collections.singletonList(eventDTO);
 
         eventDataTransformationService.assignVenueDataForEvent(eventDTOS);
 
-        assertEquals(v1,e1.getVenueDTO());
+        assertEquals(venueDTO,eventDTO.getVenueDTO());
     }
 
 

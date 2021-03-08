@@ -44,7 +44,7 @@ public class ArtistRetrievalServiceImpl implements ArtistRetrievalService {
             for (ArtistIdDTO artist : eventDTO.getArtists()) {
                 artistDTOList.add(artistDataById.get(artist.getId()));
             }
-            eventDTO.setArtistSet(artistDTOList);
+            eventDTO.setArtistDTOSet(artistDTOList);
         }
     }
 }

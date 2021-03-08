@@ -54,6 +54,6 @@ class ArtistRetrievalServiceImplTest {
 
         artistRetrievalService.setArtistDetails(eventDTOS);
 
-        assertEquals(eventDTO.getArtistSet(), new HashSet<>(Set.of(artistDTOS.get(0))));
+        assertEquals(eventDTO.getArtistDTOSet(), new HashSet<>(Set.of(artistDTOS.get(0))));
     }
 }
